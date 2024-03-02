@@ -1,1 +1,74 @@
-<h3>hello world</h3>
+<h3>calculator</h3>
+<div class="div">
+    <label class="label" id="lbl_result">0</label>
+</div>
+<div class="div">
+    <button class="button" onclick="btn_click(this)" value="1">1</button>
+    <button class="button" onclick="btn_click(this)" value="2">2</button>
+    <button class="button" onclick="btn_click(this)" value="3">3</button>
+    <button class="button" onclick="btn_click(this)" value="+">+</button>
+</div>
+<div class="div">
+    <button class="button" onclick="btn_click(this)" value="4">4</button>
+    <button class="button" onclick="btn_click(this)" value="5">5</button>
+    <button class="button" onclick="btn_click(this)" value="6">6</button>
+    <button class="button" onclick="btn_click(this)" value="-">-</button>
+</div>
+<div class="div">
+    <button class="button" onclick="btn_click(this)" value="7">7</button>
+    <button class="button" onclick="btn_click(this)" value="8">8</button>
+    <button class="button" onclick="btn_click(this)" value="9">9</button>
+    <button class="button" onclick="btn_click(this)" value="*">*</button>
+</div >
+<div class="div">
+    <button class="button" onclick="btn_click(this)" value="C">C</button>
+    <button class="button" onclick="btn_click(this)" value="0">0</button>
+    <button class="button" onclick="btn_click(this)" value="=">=</button>
+    <button class="button" onclick="btn_click(this)" value="/">/</button>
+</div >
+<style>
+    .div{
+        width: 50%;
+     
+    }
+    .button{
+        width: 23%;
+        height: 50px;
+    }
+    .label {
+        font-weight: bold;
+        text-align: right; 
+        font-size: 20pt; 
+      
+        width:94%;
+        display: inline-table;
+      
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    var lbl_result="";
+    function btn_click(e){
+        console.log(e.value);
+        if(e.value!="="){
+            if(lbl_result=="0"){
+                lbl_result=e.value
+            }else {
+             lbl_result+=e.value
+            }
+        }
+        if (e.value=="C") {
+            lbl_result="0";
+        }
+        if (e.value=="=") {
+            
+            $.post( "calc",JSON.stringify({cmd:lbl_result}), function( e ) {
+                lbl_result=e.result;
+                $("#lbl_result").text(lbl_result);
+                lbl_result="0";
+            }, "json");
+        }
+        $("#lbl_result").text(lbl_result);
+
+    }
+</script>
