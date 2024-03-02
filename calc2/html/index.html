@@ -47,14 +47,14 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
-    var lbl_result="";
+    var lbl_result="0";
     function btn_click(e){
         console.log(e.value);
         if(e.value!="="){
-            if(lbl_result=="0"){
-                lbl_result=e.value
+            if(lbl_result=="0" && e.value!="+"&& e.value!="-"&& e.value!="*"&& e.value!="/"){
+                lbl_result=e.value;
             }else {
-             lbl_result+=e.value
+                lbl_result+=e.value;
             }
         }
         if (e.value=="C") {
@@ -65,7 +65,7 @@
             $.post( "calc",JSON.stringify({cmd:lbl_result}), function( e ) {
                 lbl_result=e.result;
                 $("#lbl_result").text(lbl_result);
-                lbl_result="0";
+                
             }, "json");
         }
         $("#lbl_result").text(lbl_result);
